@@ -248,6 +248,7 @@ GameObject:
   - component: {fileID: 6654903219765629202}
   - component: {fileID: 4001036439364300599}
   - component: {fileID: 9104929958826493974}
+  - component: {fileID: 3688052470862333854}
   m_Layer: 5
   m_Name: power_gage
   m_TagString: Untagged
@@ -321,6 +322,20 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
+--- !u!114 &3688052470862333854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6034547771066683185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ba8ff91e31cc4a46840066aa6cc1580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 572202113762471978}
+  gage_speed: 1.5
 --- !u!1 &6907590337931491477
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,6 +617,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite_renderer: {fileID: 4835897022099354718}
+  power_gage: {fileID: 3688052470862333854}
   state: 0
   speed: 12
-  kick_target: {fileID: 0}
+  spin_max: 12.5
+  max_impulse: 12

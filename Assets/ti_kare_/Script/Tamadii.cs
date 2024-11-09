@@ -8,33 +8,36 @@ public class Tamadii : MonoBehaviour
     {
         Idle,
         Running,
-        Kick,
+        KickWait,
+        Charge,
     }
 
     public SpriteRenderer sprite_renderer;
+    public PowerGage power_gage;
     public State state;
     public float speed;
-    public Building kick_target;
+    Building kick_target;
     public float spin_max;
-    public float impulse;
+    public float max_impulse;
 
     void Start()
     {
-        
+
     }
 
     void Update()
     {
+        // 移動処理
         if (!kick_target)
         {
             state = State.Idle;
         }
-        else
+        else if (state == State.Idle || state == State.Running)
         {
             bool is_arrived = MoveTo(kick_target.transform.position.x);
             if (is_arrived)
             {
-                state = State.Kick;
+                state = State.KickWait;
             }
             else
             {
@@ -42,11 +45,39 @@ public class Tamadii : MonoBehaviour
             }
         }
 
-
-        if (state != State.Kick)
+        if (state == State.KickWait)
         {
+            // ビルキックシーケンス開始
+            if (Input.GetMouseButtonDown(0))
+            {
+                power_gage.StartGage();
+                state = State.Charge;
+            }
+        }
+        else if (state == State.Charge)
+        {
+            //キック発射
+            if (Input.GetMouseButtonDown(0))
+            {
+                var gage_value = power_gage.StopAndGet();
+                Vector2 mouse_pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                var dir = mouse_pos - (Vector2)kick_target.transform.position;
+                ShotDesc desc = new ShotDesc();
+                desc.building = kick_target.GetComponent<Rigidbody2D>();
+                desc.direction = dir.normalized;
+                desc.spin_torque = Random.Range(-spin_max, spin_max);
+                desc.impulse = max_impulse * gage_value;
+                Launcher.Instance.Shot(desc);
+                state = State.Idle;
+                kick_target = null;
+            }
+        }
+        else
+        {
+            // ビル選択
             if (Input.GetMouseButtonDown(0)) // 0は左クリック
             {
+                power_gage.HideGage();
                 Vector3 mousePosition = Input.mousePosition;
                 mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
                 mousePosition.z = 0;
@@ -60,55 +91,38 @@ public class Tamadii : MonoBehaviour
             }
             return;
         }
-        else
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                Vector2 mouse_pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                var dir = mouse_pos - (Vector2)kick_target.transform.position;
-                ShotDesc desc = new ShotDesc();
-                desc.building = kick_target.GetComponent<Rigidbody2D>();
-                desc.direction = dir.normalized;
-                desc.spin_torque = Random.Range(-spin_max, spin_max);
-                desc.impulse = impulse;
-                Launcher.Instance.Shot(desc);
-                state = State.Idle;
-                kick_target = null;
-            }
-        }
-
     }
 
     bool MoveTo(float destination_x)
-    {
-        var dir = destination_x - transform.position.x;
-        var move_delta = Time.deltaTime * speed;
-        if (Mathf.Abs(dir) <= move_delta)
         {
-            var pos = transform.position;
-            pos.x = destination_x;
-            transform.position = pos;
-            return true;
-        }
-        else
-        {
-            if (dir < 0)
+            var dir = destination_x - transform.position.x;
+            var move_delta = Time.deltaTime * speed;
+            if (Mathf.Abs(dir) <= move_delta)
             {
-                sprite_renderer.flipX = true;
+                var pos = transform.position;
+                pos.x = destination_x;
+                transform.position = pos;
+                return true;
             }
-            if (0 < dir)
+            else
             {
-                sprite_renderer.flipX = false;
-            }
-            dir = Mathf.Clamp(dir, -1, 1);
+                if (dir < 0)
+                {
+                    sprite_renderer.flipX = true;
+                }
+                if (0 < dir)
+                {
+                    sprite_renderer.flipX = false;
+                }
+                dir = Mathf.Clamp(dir, -1, 1);
 
-            transform.Translate(dir * move_delta * Vector2.right);
-            return false;
+                transform.Translate(dir * move_delta * Vector2.right);
+                return false;
+            }
+        }
+
+        void MoveToKickTarget()
+        {
+
         }
     }
-
-    void MoveToKickTarget()
-    {
-
-    }
-}
