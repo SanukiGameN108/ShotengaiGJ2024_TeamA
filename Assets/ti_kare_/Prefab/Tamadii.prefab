@@ -496,6 +496,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3719616837202685127}
   - component: {fileID: 4835897022099354718}
+  - component: {fileID: 6411689308080409785}
+  - component: {fileID: 256547867383288015}
   m_Layer: 0
   m_Name: image
   m_TagString: Untagged
@@ -559,7 +561,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e21c1939e4c51004cba1a02ef7714e2b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0fb5864fb4468aa4b9e00463c0af34bd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -570,6 +572,51 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &6411689308080409785
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7592518753268076669}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &256547867383288015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7592518753268076669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3759e2aae0f7b9a47bb98fc64bf3c543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingMode: 1
+  m_WrapMode: 0
+  m_Clip: {fileID: 7400000, guid: 0987f52399c1d754fb1b76ffe36e1735, type: 2}
+  m_States:
+  - clip: {fileID: 7400000, guid: 0987f52399c1d754fb1b76ffe36e1735, type: 2}
+    name: Default
+    defaultState: 1
+  - clip: {fileID: 7400000, guid: 2f0f9de783238de43b57489f3f438e1d, type: 2}
+    name: Dash
+    defaultState: 0
 --- !u!1 &8557946001697959969
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,6 +665,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite_renderer: {fileID: 4835897022099354718}
   power_gage: {fileID: 3688052470862333854}
+  simple_animation: {fileID: 256547867383288015}
   state: 0
   speed: 12
   spin_max: 12.5

@@ -14,6 +14,7 @@ public class Tamadii : MonoBehaviour
 
     public SpriteRenderer sprite_renderer;
     public PowerGage power_gage;
+    public SimpleAnimation simple_animation;
     public State state;
     public float speed;
     Building kick_target;
@@ -31,6 +32,7 @@ public class Tamadii : MonoBehaviour
         if (!kick_target)
         {
             state = State.Idle;
+            simple_animation.Play("Default");
         }
         else if (state == State.Idle || state == State.Running)
         {
@@ -38,10 +40,12 @@ public class Tamadii : MonoBehaviour
             if (is_arrived)
             {
                 state = State.KickWait;
+                simple_animation.Play("Default");
             }
             else
             {
                 state = State.Running;
+                simple_animation.Play("Dash");
             }
         }
 
@@ -52,6 +56,7 @@ public class Tamadii : MonoBehaviour
             {
                 power_gage.StartGage();
                 state = State.Charge;
+                simple_animation.Play("Default");
             }
         }
         else if (state == State.Charge)
@@ -69,6 +74,7 @@ public class Tamadii : MonoBehaviour
                 desc.impulse = max_impulse * gage_value;
                 Launcher.Instance.Shot(desc);
                 state = State.Idle;
+                simple_animation.Play("Default");
                 kick_target = null;
             }
         }
@@ -88,8 +94,9 @@ public class Tamadii : MonoBehaviour
                 {
                     kick_target = hit.collider.GetComponent<Building>();
                 }
+                state = State.Running;
+                simple_animation.Play("Dash");
             }
-            return;
         }
     }
 
