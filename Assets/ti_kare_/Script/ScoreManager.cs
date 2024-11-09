@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class ScoreManager : MonoSingleton<ScoreManager>
 {
+    public int shotable_count;
 
     void Start()
     {
@@ -15,6 +15,15 @@ public class ScoreManager : MonoSingleton<ScoreManager>
     void Update()
     {
         
+    }
+
+    public void NotifyShotFired()
+    {
+        shotable_count--;
+        if(shotable_count == 0)
+        {
+            MainGameManager.Instance.ChangeState(MainGameManager.State.Result);
+        }
     }
 
     public int CountPoint()

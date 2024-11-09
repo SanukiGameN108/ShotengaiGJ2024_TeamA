@@ -10,7 +10,6 @@ using UnityEngine.SceneManagement;
 public class ResulScript : MonoBehaviour
 {
     private int maxScorepoint = 10;//デフォルトで10
-    private int scorePoint = 0;
 
     private float timer=0;
     private float maxtime=1;
@@ -38,23 +37,15 @@ public class ResulScript : MonoBehaviour
     {
         maxScorepoint = i;
     }
-    public void SetScorePoint(int i)
-    {
-        scorePoint = i;
-    }
-  
 
     //呼び出すとリザルト表示
     public void StartResultEvent()
     {
         StartCoroutine("ShowResultEvent");
-
     }
     // Update is called once per frame
     void Update()
     {
-        
-
         if (isTime)
         {
             timer += Time.deltaTime;
@@ -62,6 +53,7 @@ public class ResulScript : MonoBehaviour
             showScorePointText.text = "Point  " + val.ToString() + "/" + maxScorepoint.ToString();
             if (timer >= maxtime)
             {
+                var scorePoint = ScoreManager.Instance.CountPoint();
                 showScorePointText.text = "Point  " + scorePoint.ToString() + "/" + maxScorepoint.ToString();
                 isTime = false;
             }
@@ -94,6 +86,7 @@ public class ResulScript : MonoBehaviour
         //評価の表示
         //スコアの範囲によって表示する評価オブジェクトを変更する
 
+        var scorePoint = ScoreManager.Instance.CountPoint();
         if (scorePoint > maxScorepoint / 3)
         {
             if (scorePoint >= maxScorepoint - 2)

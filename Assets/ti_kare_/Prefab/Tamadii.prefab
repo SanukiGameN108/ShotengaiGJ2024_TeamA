@@ -560,7 +560,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 0fb5864fb4468aa4b9e00463c0af34bd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -630,6 +630,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7412969929667808794}
   - component: {fileID: 1129496961670740017}
+  - component: {fileID: 7775834343860723422}
   m_Layer: 0
   m_Name: Tamadii
   m_TagString: Player
@@ -669,7 +670,20 @@ MonoBehaviour:
   sprite_renderer: {fileID: 4835897022099354718}
   power_gage: {fileID: 3688052470862333854}
   simple_animation: {fileID: 256547867383288015}
+  launcher: {fileID: 7775834343860723422}
   state: 0
   speed: 12
   spin_max: 12.5
   max_impulse: 12
+--- !u!114 &7775834343860723422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8557946001697959969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db44d08617e8a4458606c4a13fb47c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

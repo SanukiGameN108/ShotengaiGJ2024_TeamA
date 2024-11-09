@@ -9,10 +9,8 @@ public struct ShotDesc
     public Vector2 direction;
 }
 
-public class Launcher : MonoSingleton<Launcher>
+public class Launcher : MonoBehaviour
 {
-
-
     Tamadii tamadii;
 
     void Start()

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tamadii : MonoBehaviour
+public class Tamadii : MonoSingleton<Tamadii>
 {
     public enum State
     {
@@ -15,19 +15,33 @@ public class Tamadii : MonoBehaviour
     public SpriteRenderer sprite_renderer;
     public PowerGage power_gage;
     public SimpleAnimation simple_animation;
+    public Launcher launcher;
     public State state;
     public float speed;
     Building kick_target;
     public float spin_max;
     public float max_impulse;
+    bool is_active;
 
     void Start()
     {
 
     }
 
+    public void Activate()
+    {
+        is_active = true;
+    }
+
+    public void Deactivate()
+    {
+        is_active = false;
+    }
+
     void Update()
     {
+        if (!is_active) { return; }
+
         // à⁄ìÆèàóù
         if (!kick_target)
         {
@@ -64,19 +78,7 @@ public class Tamadii : MonoBehaviour
             //ÉLÉbÉNî≠éÀ
             if (Input.GetMouseButtonDown(0))
             {
-                var gage_value = power_gage.StopAndGet();
-                Vector2 mouse_pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                var dir = mouse_pos - (Vector2)kick_target.transform.position;
-                FaceToDir(dir.x);
-                ShotDesc desc = new ShotDesc();
-                desc.building = kick_target.GetComponent<Rigidbody2D>();
-                desc.direction = dir.normalized;
-                desc.spin_torque = Random.Range(-spin_max, spin_max);
-                desc.impulse = max_impulse * gage_value;
-                Launcher.Instance.Shot(desc);
-                state = State.Idle;
-                simple_animation.Play("Kick");
-                kick_target = null;
+                Shot();
             }
         }
         else
@@ -99,6 +101,29 @@ public class Tamadii : MonoBehaviour
                 simple_animation.Play("Dash");
             }
         }
+    }
+
+    void CheckBuildingRayCast()
+    {
+
+    }
+
+    void Shot()
+    {
+        var gage_value = power_gage.StopAndGet();
+        Vector2 mouse_pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        var dir = mouse_pos - (Vector2)kick_target.transform.position;
+        FaceToDir(dir.x);
+        ShotDesc desc = new ShotDesc();
+        desc.building = kick_target.GetComponent<Rigidbody2D>();
+        desc.direction = dir.normalized;
+        desc.spin_torque = Random.Range(-spin_max, spin_max);
+        desc.impulse = max_impulse * gage_value;
+        launcher.Shot(desc);
+        ScoreManager.Instance.NotifyShotFired();
+        state = State.Idle;
+        simple_animation.Play("Kick");
+        kick_target = null;
     }
 
     void FaceToDir(float dir)
@@ -132,10 +157,5 @@ public class Tamadii : MonoBehaviour
             transform.Translate(dir * move_delta * Vector2.right);
             return false;
         }
-    }
-
-    void MoveToKickTarget()
-    {
-
     }
 }
