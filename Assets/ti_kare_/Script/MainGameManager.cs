@@ -48,4 +48,12 @@ public class MainGameManager : MonoSingleton<MainGameManager>
             result?.StartResultEvent();
         }
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
 }
