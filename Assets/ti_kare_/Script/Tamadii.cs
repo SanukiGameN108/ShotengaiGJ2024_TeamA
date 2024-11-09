@@ -21,26 +21,15 @@ public class Tamadii : MonoSingleton<Tamadii>
     Building kick_target;
     public float spin_max;
     public float max_impulse;
-    bool is_active;
 
     void Start()
     {
 
     }
 
-    public void Activate()
-    {
-        is_active = true;
-    }
-
-    public void Deactivate()
-    {
-        is_active = false;
-    }
-
     void Update()
     {
-        if (!is_active) { return; }
+        if (!MainGameManager.Instance.IsMainGame()) { return; }
 
         // ˆÚ“®ˆ—
         if (!kick_target)

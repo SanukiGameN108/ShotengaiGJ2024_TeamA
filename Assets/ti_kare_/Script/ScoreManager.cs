@@ -17,6 +17,11 @@ public class ScoreManager : MonoSingleton<ScoreManager>
         
     }
 
+   public int GetShottableCount()
+    {
+        return shotable_count;
+    }
+
     public void NotifyShotFired()
     {
         shotable_count--;

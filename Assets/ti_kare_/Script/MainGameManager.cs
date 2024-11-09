@@ -14,7 +14,7 @@ public class MainGameManager : MonoSingleton<MainGameManager>
 
     public GameObject title_menu;
     public GameObject result_menu;
-    State state;
+    public State state;
 
     public void StartMainGame()
     {
@@ -27,26 +27,18 @@ public class MainGameManager : MonoSingleton<MainGameManager>
 
         if (state == State.MainGame)
         {
-            var player_obj = GameObject.FindGameObjectWithTag("Player");
-            if (player_obj)
-            {
-                var player = player_obj.GetComponent<Tamadii>();
-                player?.Activate();
-            }
                 title_menu.SetActive(false);
         }
         else if (state == State.Result)
         {
-            var player_obj = GameObject.FindGameObjectWithTag("Player");
-            if (player_obj)
-            {
-                var player = player_obj.GetComponent<Tamadii>();
-                player?.Deactivate();
-            }
-
             var result =result_menu.GetComponent<ResulScript>();
             result?.StartResultEvent();
         }
+    }
+
+    public bool IsMainGame()
+    {
+        return state == State.MainGame;
     }
 
     private void Update()
