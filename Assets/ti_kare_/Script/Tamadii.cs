@@ -15,6 +15,8 @@ public class Tamadii : MonoBehaviour
     public State state;
     public float speed;
     public Building kick_target;
+    public float spin_max;
+    public float impulse;
 
     void Start()
     {
@@ -26,7 +28,6 @@ public class Tamadii : MonoBehaviour
         if (!kick_target)
         {
             state = State.Idle;
-            return;
         }
         else
         {
@@ -38,6 +39,41 @@ public class Tamadii : MonoBehaviour
             else
             {
                 state = State.Running;
+            }
+        }
+
+
+        if (state != State.Kick)
+        {
+            if (Input.GetMouseButtonDown(0)) // 0ÇÕç∂ÉNÉäÉbÉN
+            {
+                Vector3 mousePosition = Input.mousePosition;
+                mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+                mousePosition.z = 0;
+
+                RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
+
+                if (hit.collider && hit.collider.gameObject.CompareTag("Building"))
+                {
+                    kick_target = hit.collider.GetComponent<Building>();
+                }
+            }
+            return;
+        }
+        else
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector2 mouse_pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                var dir = mouse_pos - (Vector2)kick_target.transform.position;
+                ShotDesc desc = new ShotDesc();
+                desc.building = kick_target.GetComponent<Rigidbody2D>();
+                desc.direction = dir.normalized;
+                desc.spin_torque = Random.Range(-spin_max, spin_max);
+                desc.impulse = impulse;
+                Launcher.Instance.Shot(desc);
+                state = State.Idle;
+                kick_target = null;
             }
         }
 
