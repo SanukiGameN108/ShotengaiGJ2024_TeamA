@@ -67,6 +67,7 @@ public class Tamadii : MonoBehaviour
                 var gage_value = power_gage.StopAndGet();
                 Vector2 mouse_pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 var dir = mouse_pos - (Vector2)kick_target.transform.position;
+                FaceToDir(dir.x);
                 ShotDesc desc = new ShotDesc();
                 desc.building = kick_target.GetComponent<Rigidbody2D>();
                 desc.direction = dir.normalized;
@@ -74,7 +75,7 @@ public class Tamadii : MonoBehaviour
                 desc.impulse = max_impulse * gage_value;
                 Launcher.Instance.Shot(desc);
                 state = State.Idle;
-                simple_animation.Play("Default");
+                simple_animation.Play("Kick");
                 kick_target = null;
             }
         }
@@ -100,36 +101,41 @@ public class Tamadii : MonoBehaviour
         }
     }
 
-    bool MoveTo(float destination_x)
+    void FaceToDir(float dir)
+    {
+        if (dir < 0)
         {
-            var dir = destination_x - transform.position.x;
-            var move_delta = Time.deltaTime * speed;
-            if (Mathf.Abs(dir) <= move_delta)
-            {
-                var pos = transform.position;
-                pos.x = destination_x;
-                transform.position = pos;
-                return true;
-            }
-            else
-            {
-                if (dir < 0)
-                {
-                    sprite_renderer.flipX = true;
-                }
-                if (0 < dir)
-                {
-                    sprite_renderer.flipX = false;
-                }
-                dir = Mathf.Clamp(dir, -1, 1);
-
-                transform.Translate(dir * move_delta * Vector2.right);
-                return false;
-            }
+            sprite_renderer.flipX = true;
         }
-
-        void MoveToKickTarget()
+        if (0 < dir)
         {
-
+            sprite_renderer.flipX = false;
         }
     }
+
+    bool MoveTo(float destination_x)
+    {
+        var dir = destination_x - transform.position.x;
+        var move_delta = Time.deltaTime * speed;
+        if (Mathf.Abs(dir) <= move_delta)
+        {
+            var pos = transform.position;
+            pos.x = destination_x;
+            transform.position = pos;
+            return true;
+        }
+        else
+        {
+            FaceToDir(dir);
+            dir = Mathf.Clamp(dir, -1, 1);
+
+            transform.Translate(dir * move_delta * Vector2.right);
+            return false;
+        }
+    }
+
+    void MoveToKickTarget()
+    {
+
+    }
+}

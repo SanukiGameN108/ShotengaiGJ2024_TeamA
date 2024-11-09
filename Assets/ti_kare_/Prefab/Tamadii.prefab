@@ -617,6 +617,9 @@ MonoBehaviour:
   - clip: {fileID: 7400000, guid: 2f0f9de783238de43b57489f3f438e1d, type: 2}
     name: Dash
     defaultState: 0
+  - clip: {fileID: 7400000, guid: 4aceb6ab07344364094f7ae8eb22a717, type: 2}
+    name: Kick
+    defaultState: 0
 --- !u!1 &8557946001697959969
 GameObject:
   m_ObjectHideFlags: 0
