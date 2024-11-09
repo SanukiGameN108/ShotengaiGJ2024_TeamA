@@ -8,14 +8,17 @@ public class Launcher : MonoSingleton<Launcher>
     public float spin_max;
     public float impulse;
 
+    Tamadii tamadii;
+
     void Start()
     {
-        
+        tamadii = GameObject.FindGameObjectWithTag("Player").GetComponent<Tamadii>();
     }
 
     void Update()
     {
         if (building == null) { return; }
+        if(tamadii.state!= Tamadii.State.Kick) { return; }
 
         if (Input.GetMouseButtonDown(0))
         {
