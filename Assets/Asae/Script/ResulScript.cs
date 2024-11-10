@@ -9,12 +9,15 @@ using UnityEngine.SceneManagement;
 
 public class ResulScript : MonoBehaviour
 {
-    private int maxScorepoint = 10;//ƒfƒtƒHƒ‹ƒg‚Å10
+    private int maxScorepoint = 10;//ï¿½fï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½ï¿½10
 
     private float timer=0;
     private float maxtime=1;
-    private bool isTime;//w’èŠÔŒo‰ß‚µ‚½‚©iƒXƒRƒAƒJƒEƒ“ƒgƒAƒjƒ[ƒVƒ‡ƒ“—p
+    private bool isTime;//ï¿½wï¿½èï¿½ÔŒoï¿½ß‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½Xï¿½Rï¿½Aï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½p
     private bool isReStart=false;
+
+    [SerializeField]
+    private CanvasGroup canvasGroup = null;
 
     [SerializeField]
     private TextMeshProUGUI showScorePointText=null;
@@ -38,7 +41,7 @@ public class ResulScript : MonoBehaviour
         maxScorepoint = i;
     }
 
-    //ŒÄ‚Ño‚·‚ÆƒŠƒUƒ‹ƒg•\¦
+    //ï¿½Ä‚Ñoï¿½ï¿½ï¿½Æƒï¿½ï¿½Uï¿½ï¿½ï¿½gï¿½\ï¿½ï¿½
     public void StartResultEvent()
     {
         StartCoroutine("ShowResultEvent");
@@ -50,16 +53,16 @@ public class ResulScript : MonoBehaviour
         {
             timer += Time.deltaTime;
            int val = Random.Range(0,maxScorepoint);
-            showScorePointText.text = "Point  " + val.ToString() + "/" + maxScorepoint.ToString();
+            showScorePointText.text = val.ToString() + "/" + maxScorepoint.ToString() + " pts";
             if (timer >= maxtime)
             {
                 var scorePoint = ScoreManager.Instance.CountPoint();
-                showScorePointText.text = "Point  " + scorePoint.ToString() + "/" + maxScorepoint.ToString();
+                showScorePointText.text = scorePoint.ToString() + "/" + maxScorepoint.ToString() + " pts";
                 isTime = false;
             }
         }
 
-        //ƒQ[ƒ€I—¹Œã‚ÌƒŠƒXƒ^[ƒg‹@”\
+        //ï¿½Qï¿½[ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½Ìƒï¿½ï¿½Xï¿½^ï¿½[ï¿½gï¿½@ï¿½\
         if (isReStart)
         {
             if (Input.GetMouseButtonDown(0))
@@ -72,37 +75,45 @@ public class ResulScript : MonoBehaviour
     int aa;
     IEnumerator ShowResultEvent()
     {
-        //Result•\¦
+        var time = 0f;
+        while (canvasGroup.alpha < 1)
+        {
+            time += Time.deltaTime;
+            canvasGroup.alpha = time / 0.5f;
+            yield return null;
+        }
+
+        //Resultï¿½\ï¿½ï¿½
         this.transform.GetChild(1).gameObject.SetActive(true);
         image.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(1);
 
-        //ƒXƒRƒA‚Ì•\¦‚ÆƒJƒEƒ“ƒgƒAƒjƒ[ƒVƒ‡ƒ“
+        //ï¿½Xï¿½Rï¿½Aï¿½Ì•\ï¿½ï¿½ï¿½ÆƒJï¿½Eï¿½ï¿½ï¿½gï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½
         isTime = true;
         this.transform.GetChild(2).gameObject.SetActive(true);
         yield return new WaitForSeconds(1);
         Debug.Log(aa =maxScorepoint / 3);
-        //•]‰¿‚Ì•\¦
-        //ƒXƒRƒA‚Ì”ÍˆÍ‚É‚æ‚Á‚Ä•\¦‚·‚é•]‰¿ƒIƒuƒWƒFƒNƒg‚ğ•ÏX‚·‚é
+        //ï¿½]ï¿½ï¿½ï¿½Ì•\ï¿½ï¿½
+        //ï¿½Xï¿½Rï¿½Aï¿½Ì”ÍˆÍ‚É‚ï¿½ï¿½ï¿½Ä•\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ÏXï¿½ï¿½ï¿½ï¿½
 
         var scorePoint = ScoreManager.Instance.CountPoint();
         if (scorePoint > maxScorepoint / 3)
         {
             if (scorePoint >= maxScorepoint - 2)
             {
-                //ƒXƒRƒA‚ªMax‚©‚ç-2‚µ‚½”ˆÈã‚È‚çGreat
+                //ï¿½Xï¿½Rï¿½Aï¿½ï¿½Maxï¿½ï¿½ï¿½ï¿½-2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Èï¿½È‚ï¿½Great
                 greatTextobj.SetActive(true);
             }
             else if (scorePoint < maxScorepoint - 2 || scorePoint >= maxScorepoint / 3)
             {
-                //ƒXƒRƒA‚ªMax‚©‚ç-2‚µ‚½”‚Æ1/3ˆÈã‚È‚çGood
+                //ï¿½Xï¿½Rï¿½Aï¿½ï¿½Maxï¿½ï¿½ï¿½ï¿½-2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1/3ï¿½Èï¿½È‚ï¿½Good
                 goodTextobj.SetActive(true);
             }
         }
         else
         {
-            //ƒXƒRƒA‚ª1/3ˆÈ‰º‚È‚çBad•]‰¿
+            //ï¿½Xï¿½Rï¿½Aï¿½ï¿½1/3ï¿½È‰ï¿½ï¿½È‚ï¿½Badï¿½]ï¿½ï¿½
             badTextobj.SetActive(true);
         }
         yield return new WaitForSeconds(1);
