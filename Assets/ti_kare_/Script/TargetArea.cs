@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TargetArea : MonoBehaviour
 {
-    public string target_name;
+    public Building target;
     public bool is_hitting;
 
     void Start()
@@ -19,7 +19,7 @@ public class TargetArea : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name ==target_name)
+        if (collision.gameObject == target.gameObject)
         {
             is_hitting = true;
         }
@@ -27,7 +27,7 @@ public class TargetArea : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.name == target_name)
+        if (collision.gameObject == target.gameObject)
         {
             is_hitting = false;
         }

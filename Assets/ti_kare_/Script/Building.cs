@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Building : MonoBehaviour
 {
+    public TargetArea target_area;
+
     void Start()
     {
         
