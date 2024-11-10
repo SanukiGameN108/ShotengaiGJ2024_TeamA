@@ -7,17 +7,19 @@ public class PowerGage : MonoBehaviour
 {
     public Image fillImage;
     public float gage_speed;
+    CanvasGroup canvasGroup;
     bool is_moving_gage;
 
     private void Start()
     {
+        canvasGroup = GetComponent<CanvasGroup>();
         HideGage();
     }
 
     public void StartGage()
     {
         fillImage.fillAmount = 0;
-        fillImage.gameObject.SetActive(true);
+        canvasGroup.alpha = 1;
         is_moving_gage = true;
     }
 
@@ -30,7 +32,7 @@ public class PowerGage : MonoBehaviour
     public void HideGage()
     {
         is_moving_gage = false;
-        fillImage.gameObject.SetActive(false);
+        canvasGroup.alpha = 0;
     }
 
     private void Update()
