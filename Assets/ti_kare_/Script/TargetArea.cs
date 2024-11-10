@@ -8,6 +8,10 @@ public class TargetArea : MonoBehaviour
     public Building target;
     public bool is_hitting;
 
+    // プレイヤーとの距離
+    private float distance = 0f;
+    public float Distance => distance;
+
     void Start()
     {
         
@@ -15,7 +19,7 @@ public class TargetArea : MonoBehaviour
 
     void Update()
     {
-        
+        distance = Vector2.Distance(transform.position, target.transform.position);
     }
 
     public void SetDrawable(bool active)

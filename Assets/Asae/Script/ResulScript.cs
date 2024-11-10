@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class ResulScript : MonoBehaviour
 {
-    private int maxScorepoint = 10;//�f�t�H���g��10
+    public const int maxScorepoint = 30;//�f�t�H���g��10
 
     private float timer=0;
     private float maxtime=1;
@@ -38,7 +38,7 @@ public class ResulScript : MonoBehaviour
 
     public void SetMaxScorePoint(int i)
     {
-        maxScorepoint = i;
+        //maxScorepoint = i;
     }
 
     //�Ăяo���ƃ��U���g�\��

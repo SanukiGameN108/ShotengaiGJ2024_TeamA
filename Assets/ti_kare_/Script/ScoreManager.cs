@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class ScoreManager : MonoSingleton<ScoreManager>
 {
@@ -34,6 +35,13 @@ public class ScoreManager : MonoSingleton<ScoreManager>
     public int CountPoint()
     {
         var target_areas = GameObject.FindGameObjectsWithTag("TargetArea");
-        return target_areas.Count((item) => { return item.GetComponent<TargetArea>().is_hitting; });
+        var point = 0;
+        foreach (var area in target_areas)
+        {
+            var distance = area.GetComponent<TargetArea>().Distance;
+            Debug.Log(distance);
+            point += Mathf.Clamp((int)distance, 0, ResulScript.maxScorepoint); // TODO:距離によってスコアを変える
+        }
+        return point;
     }
 }
