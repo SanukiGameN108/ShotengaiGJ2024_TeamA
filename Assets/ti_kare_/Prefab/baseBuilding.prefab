@@ -175,3 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b390c4960cc294e806da36d00ec5e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cur_rb: {fileID: 1167418301327134935}
+  target_area: {fileID: 0}
+  hit_se: {fileID: 8300000, guid: 781003795c0f204468689450657656ac, type: 3}
+  se_play_time: 1

@@ -25,6 +25,7 @@ public class Tamadii : MonoSingleton<Tamadii>
     public float shot_dir_circle_interval;
     public int shot_dir_circle_count;
     public GameObject circle_prefab;
+    public AudioClip shot_se;
     Vector2 kickable_dir;
     List<GameObject> circles = new List<GameObject>();
 
@@ -183,6 +184,7 @@ public class Tamadii : MonoSingleton<Tamadii>
         state = State.Idle;
         simple_animation.Play("Kick");
         kick_target = null;
+        SoundManager.Instance.PlaySE(shot_se);
     }
 
     void FaceToDir(float dir)
