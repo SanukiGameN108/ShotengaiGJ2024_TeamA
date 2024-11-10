@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PowerGage : MonoBehaviour
 {
-    public Slider slider;
+    public Image fillImage;
     public float gage_speed;
     bool is_moving_gage;
 
@@ -16,31 +16,31 @@ public class PowerGage : MonoBehaviour
 
     public void StartGage()
     {
-        slider.value = 0;
-        slider.gameObject.SetActive(true);
+        fillImage.fillAmount = 0;
+        fillImage.gameObject.SetActive(true);
         is_moving_gage = true;
     }
 
     public float StopAndGet()
     {
         is_moving_gage = false;
-        return slider.value;
+        return fillImage.fillAmount;
     }
 
     public void HideGage()
     {
         is_moving_gage = false;
-        slider.gameObject.SetActive(false);
+        fillImage.gameObject.SetActive(false);
     }
 
     private void Update()
     {
         if (!is_moving_gage) { return; }
 
-        slider.value += gage_speed * Time.deltaTime;
-        if (1.0f <= slider.value)
+        fillImage.fillAmount += gage_speed * Time.deltaTime;
+        if (1.0f <= fillImage.fillAmount)
         {
-            slider.value -= 1.0f;
+            fillImage.fillAmount -= 1.0f;
         }
     }
 }
