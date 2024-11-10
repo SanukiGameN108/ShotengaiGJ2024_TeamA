@@ -200,6 +200,7 @@ GameObject:
   - component: {fileID: 4001036439364300599}
   - component: {fileID: 9104929958826493974}
   - component: {fileID: 3688052470862333854}
+  - component: {fileID: 2459596435141991249}
   m_Layer: 5
   m_Name: power_gage
   m_TagString: Untagged
@@ -288,6 +289,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fillImage: {fileID: 858025590076642482}
   gage_speed: 1.5
+--- !u!225 &2459596435141991249
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6034547771066683185}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6813729276734697469
 GameObject:
   m_ObjectHideFlags: 0
