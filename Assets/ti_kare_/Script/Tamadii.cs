@@ -66,7 +66,7 @@ public class Tamadii : MonoSingleton<Tamadii>
         }
     }
 
-    Building RayCastByMouse(Vector3 mouse_world)
+    public static Building RayCastByMouse(Vector3 mouse_world)
     {
         RaycastHit2D hit = Physics2D.Raycast(mouse_world, Vector2.zero);
         if (hit.collider && hit.collider.gameObject.CompareTag("Building"))
@@ -75,6 +75,15 @@ public class Tamadii : MonoSingleton<Tamadii>
         }
 
         return null;
+    }
+
+    static void ResetBuildingDraw()
+    {
+        var buildings = GameObject.FindGameObjectsWithTag("Building");
+        foreach (var building in buildings ){
+            var building_comp= building.GetComponent<Building>();
+            building_comp.DrawTarget(false);
+        }
     }
 
     void Update()
@@ -103,9 +112,15 @@ public class Tamadii : MonoSingleton<Tamadii>
             }
         }
 
+        var mouse_world = GetMouseWorld();
+        var hit_building = RayCastByMouse(mouse_world);
+        ResetBuildingDraw();
+
         if (state == State.KickWait)
         {
             InstantiateMouseDirObjects();
+            kick_target.DrawTarget(true);
+
 
             // ビルキックシーケンス開始
             if (Input.GetMouseButtonDown(0))
@@ -118,6 +133,7 @@ public class Tamadii : MonoSingleton<Tamadii>
         else if (state == State.Charge)
         {
             InstantiateMouseDirObjects();
+            kick_target.DrawTarget(true);
 
             //キック発射
             if (Input.GetMouseButtonDown(0))
@@ -131,11 +147,17 @@ public class Tamadii : MonoSingleton<Tamadii>
             if (Input.GetMouseButtonDown(0)) // 0は左クリック
             {
                 power_gage.HideGage();
-                var mouse_world = GetMouseWorld();
-                kick_target = RayCastByMouse(mouse_world);
+                kick_target = hit_building;
 
                 state = State.Running;
                 simple_animation.Play("Dash");
+            }
+            else
+            {
+                if (hit_building)
+                {
+                    hit_building.DrawTarget(true);
+                }
             }
         }
     }

@@ -16,4 +16,9 @@ public class Building : MonoBehaviour
     {
        
     }
+
+    public void DrawTarget(bool active)
+    {
+        target_area?.SetDrawable(active);
+    }
 }
