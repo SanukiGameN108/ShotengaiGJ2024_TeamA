@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TargetArea : MonoBehaviour
 {
-    public SpriteRenderer sprite_renderer;
+    //public SpriteRenderer sprite_renderer;
     public Building target;
     public bool is_hitting;
 
@@ -20,7 +20,7 @@ public class TargetArea : MonoBehaviour
 
     public void SetDrawable(bool active)
     {
-        sprite_renderer.enabled = active;
+        //sprite_renderer.enabled = active;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
