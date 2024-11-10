@@ -40,7 +40,7 @@ public class ScoreManager : MonoSingleton<ScoreManager>
         {
             var distance = area.GetComponent<TargetArea>().Distance;
             Debug.Log(distance);
-            point += Mathf.Clamp((int)distance, 0, ResulScript.maxScorepoint); // TODO:距離によってスコアを変える
+            point += 10 - Mathf.Clamp((int)distance, 0, ResulScript.maxScorepoint); // TODO:距離によってスコアを変える
         }
         return point;
     }
