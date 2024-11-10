@@ -10,6 +10,7 @@ public class Tamadii : MonoSingleton<Tamadii>
         Running,
         KickWait,
         Charge,
+        Clear,
     }
 
     public SpriteRenderer sprite_renderer;
@@ -21,14 +22,64 @@ public class Tamadii : MonoSingleton<Tamadii>
     Building kick_target;
     public float spin_max;
     public float max_impulse;
+    public float shot_dir_circle_interval;
+    public int shot_dir_circle_count;
+    public GameObject circle_prefab;
+    Vector2 kickable_dir;
+    List<GameObject> circles = new List<GameObject>();
 
     void Start()
     {
 
     }
 
+    Vector3 GetMouseWorld()
+    {
+        Vector3 mouse_position = Input.mousePosition;
+        mouse_position = Camera.main.ScreenToWorldPoint(mouse_position);
+        mouse_position.z = 0;
+        return mouse_position;
+    }
+
+    void DestroyMouseDirObjects()
+    {
+        foreach (GameObject obj in circles)
+        {
+            Destroy(obj);
+        }
+    }
+
+    void InstantiateMouseDirObjects()
+    {
+        if (!kick_target) { return; }
+
+        var mouse_world = GetMouseWorld();
+        var kick_target_pos = kick_target.transform.position;
+        var shot_dir = mouse_world - kick_target_pos;
+        shot_dir.Normalize();
+
+        for (int i = 0; i < shot_dir_circle_count; ++i)
+        {
+            var circle = Instantiate(circle_prefab);
+            circle.transform.position = kick_target_pos + shot_dir * shot_dir_circle_interval * i;
+            circles.Add(circle);
+        }
+    }
+
+    Building RayCastByMouse(Vector3 mouse_world)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(mouse_world, Vector2.zero);
+        if (hit.collider && hit.collider.gameObject.CompareTag("Building"))
+        {
+            return hit.collider.GetComponent<Building>();
+        }
+
+        return null;
+    }
+
     void Update()
     {
+        DestroyMouseDirObjects();
         if (!MainGameManager.Instance.IsMainGame()) { return; }
 
         // 移動処理
@@ -54,6 +105,8 @@ public class Tamadii : MonoSingleton<Tamadii>
 
         if (state == State.KickWait)
         {
+            InstantiateMouseDirObjects();
+
             // ビルキックシーケンス開始
             if (Input.GetMouseButtonDown(0))
             {
@@ -64,6 +117,8 @@ public class Tamadii : MonoSingleton<Tamadii>
         }
         else if (state == State.Charge)
         {
+            InstantiateMouseDirObjects();
+
             //キック発射
             if (Input.GetMouseButtonDown(0))
             {
@@ -76,16 +131,9 @@ public class Tamadii : MonoSingleton<Tamadii>
             if (Input.GetMouseButtonDown(0)) // 0は左クリック
             {
                 power_gage.HideGage();
-                Vector3 mousePosition = Input.mousePosition;
-                mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-                mousePosition.z = 0;
+                var mouse_world = GetMouseWorld();
+                kick_target = RayCastByMouse(mouse_world);
 
-                RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
-
-                if (hit.collider && hit.collider.gameObject.CompareTag("Building"))
-                {
-                    kick_target = hit.collider.GetComponent<Building>();
-                }
                 state = State.Running;
                 simple_animation.Play("Dash");
             }

@@ -560,7 +560,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 0fb5864fb4468aa4b9e00463c0af34bd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -675,6 +675,9 @@ MonoBehaviour:
   speed: 12
   spin_max: 12.5
   max_impulse: 12
+  shot_dir_circle_interval: 0.75
+  shot_dir_circle_count: 8
+  circle_prefab: {fileID: 7071834401532403480, guid: 21500377b806c1e48b37bbb2b8cd2123, type: 3}
 --- !u!114 &7775834343860723422
 MonoBehaviour:
   m_ObjectHideFlags: 0
