@@ -13,12 +13,24 @@ PrefabInstance:
       value: Prop_Inoue01
       objectReference: {fileID: 0}
     - target: {fileID: 1081556128225959955, guid: 4478318a75dcde641a68d20e634a2733, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 1081556128225959955, guid: 4478318a75dcde641a68d20e634a2733, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 1081556128225959955, guid: 4478318a75dcde641a68d20e634a2733, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 1081556128225959955, guid: 4478318a75dcde641a68d20e634a2733, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.35143512
+      value: -11.976435
       objectReference: {fileID: 0}
     - target: {fileID: 1081556128225959955, guid: 4478318a75dcde641a68d20e634a2733, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.4568567
+      value: -5.7068567
       objectReference: {fileID: 0}
     - target: {fileID: 1081556128225959955, guid: 4478318a75dcde641a68d20e634a2733, type: 3}
       propertyPath: m_LocalPosition.z
@@ -51,6 +63,10 @@ PrefabInstance:
     - target: {fileID: 1081556128225959955, guid: 4478318a75dcde641a68d20e634a2733, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1081556128225959955, guid: 4478318a75dcde641a68d20e634a2733, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3703032036269368211, guid: 4478318a75dcde641a68d20e634a2733, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x

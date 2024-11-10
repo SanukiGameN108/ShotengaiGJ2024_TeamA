@@ -26,6 +26,7 @@ public class Tamadii : MonoSingleton<Tamadii>
     public int shot_dir_circle_count;
     public GameObject circle_prefab;
     public AudioClip shot_se;
+    public float prop_search_range;
     Vector2 kickable_dir;
     List<GameObject> circles = new List<GameObject>();
 
@@ -183,8 +184,26 @@ public class Tamadii : MonoSingleton<Tamadii>
         ScoreManager.Instance.NotifyShotFired();
         state = State.Idle;
         simple_animation.Play("Kick");
+        BlowNearProps();
         kick_target = null;
         SoundManager.Instance.PlaySE(shot_se);
+    }
+
+    void BlowNearProps()
+    {
+        var props = GameObject.FindGameObjectsWithTag("Props");
+        foreach (var prop in props)
+        {
+            var prop_dist = Vector2.Distance(prop.transform.position,kick_target.transform.position);
+            if (prop_dist <= prop_search_range)
+            {
+                var prop_comp = prop.GetComponent<PropEffectObject>();
+                if (prop_comp != null)
+                {
+                    prop_comp.NotifyShotFired();
+                }
+            }
+        }
     }
 
     void FaceToDir(float dir)

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Building
   - TargetArea
+  - Ground
+  - Props
   layers:
   - Default
   - TransparentFX
@@ -14,7 +16,7 @@ TagManager:
   - Water
   - UI
   - Prop
-  - 
+  - Building
   - 
   - 
   - 
