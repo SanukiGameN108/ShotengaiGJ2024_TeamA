@@ -61,6 +61,10 @@ PrefabInstance:
       value: -1.8
       objectReference: {fileID: 0}
     - target: {fileID: 1890762196759873055, guid: 7c00f4c230bca4ace9f4997396764dc0, type: 3}
+      propertyPath: m_Color.a
+      value: 0.39215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 1890762196759873055, guid: 7c00f4c230bca4ace9f4997396764dc0, type: 3}
       propertyPath: m_RenderingLayerMask
       value: 1
       objectReference: {fileID: 0}
