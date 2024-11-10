@@ -644,6 +644,7 @@ MonoBehaviour:
   shot_dir_circle_count: 8
   circle_prefab: {fileID: 7071834401532403480, guid: 21500377b806c1e48b37bbb2b8cd2123, type: 3}
   shot_se: {fileID: 8300000, guid: 4ac0f70e407ec4449870c4a1093d0874, type: 3}
+  prop_search_range: 8
 --- !u!114 &7775834343860723422
 MonoBehaviour:
   m_ObjectHideFlags: 0
